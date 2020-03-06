@@ -7,13 +7,13 @@
     <script type=text/javascript>
         $(function() {
 
-          $('a#in-order').bind('click', function() {
+          $('a#in-order').bind('click', function() {    // sends order value (0,1,2) to Flask server
             var params = {'order': 0};
             $.getJSON('{{url_for('home')}}', params,
                 function(data) {
               //do nothing
             });
-            location.reload(true);
+            location.reload(true);  // forces reload of page
             return false;
           });
 
@@ -87,6 +87,7 @@
             {% endwith %}
 
             Welcome to the Scoreboard! View existing scores here, and feel free to add yours!
+            Please note that a valid score is between 0-1000; invalid scores cannot be submitted.
             <br><br>
 
             <div class="row">
@@ -105,9 +106,6 @@
                                     <span class="sr-only">Toggle Dropright</span>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                                    <!--Score</button>-->
-                                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
                                     <a class="dropdown-item" href="{{url_for('home')}}" id="in-order">Original Order</a>
                                     <a class="dropdown-item" href="{{url_for('home')}}" id="ascend">Ascending</a>
                                     <a class="dropdown-item" href="{{url_for('home')}}" id="descend">Descending</a>
