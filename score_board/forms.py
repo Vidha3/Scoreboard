@@ -8,7 +8,3 @@ class DataForm(FlaskForm):
     score = IntegerField('Score', validators=[DataRequired(), NumberRange(min=0, max=1000)])
     submit = SubmitField('Submit your score')
 
-
-class OrderForm(FlaskForm):
-    order = SelectField('Score', choices=[('inorder', 'In Order'), ('ascend', 'Ascending'), ('descend', 'Descending')],
-                        default='inorder')

@@ -12,8 +12,8 @@ from score_board import sb
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8815976dfb4c5e3a124ce3cdcae89812'
-app.jinja_env.auto_reload = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+# app.jinja_env.auto_reload = True
+# app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 @app.route('/')

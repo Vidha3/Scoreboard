@@ -25,6 +25,7 @@ When you are done zip up the repo or create a git bundle, whichever you prefer.
 
 class Scoreboard:
     def __init__(self):
+        # scoreboard: list of tuples with some built-in entries
         self.scoreboard = [("tom", 343), ("rock", 421), ("storm", 122)]
         self.names = set([x[0] for x in self.scoreboard])
         self.ordering = 0

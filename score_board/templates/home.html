@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type=text/javascript>
         $(function() {
-        dropdownMenuLink
+
           $('a#in-order').bind('click', function() {
             var params = {'order': 0};
             $.getJSON('{{url_for('home')}}', params,
@@ -39,7 +39,8 @@
 
         });
 
-</script>
+
+    </script>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -52,6 +53,7 @@
 
     .carousel .carousel-indicators .active {
     background-color: red;
+
     </style>
     <title> Scoreboard</title>
 
@@ -83,66 +85,70 @@
             {% endfor %}
             {% endif%}
             {% endwith %}
-            {% block concise_content %}
+
             Welcome to the Scoreboard! View existing scores here, and feel free to add yours!
             <br><br>
 
             <div class="row">
                 <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Name</th>
-                  <th scope="col">
-                      <div class="dropdown show">
-                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Score</a>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{{url_for('home')}}" id="in-order" >In order</a>
-                            <a class="dropdown-item" href="{{url_for('home')}}" id="ascend" >Ascending</a>
-                            <a class="dropdown-item" href="{{url_for('home')}}" id="descend" >Descending</a>
-                          </div>
-                        </div>
-                  </th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for name,score in scores.score_table %}
-                <tr>
-                    <td></td> <td>{{name}}</td> <td>{{score}}</td> <td></td>
-                </tr>
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">
+                            <div class="btn-group dropright">
+                                <button type="button" class="btn btn-secondary">
+                                    Score
+                                </button>
+                                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropright</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                    <!--Score</button>-->
+                                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                                    <a class="dropdown-item" href="{{url_for('home')}}" id="in-order">Original Order</a>
+                                    <a class="dropdown-item" href="{{url_for('home')}}" id="ascend">Ascending</a>
+                                    <a class="dropdown-item" href="{{url_for('home')}}" id="descend">Descending</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for name,score in scores.score_table %}
+                    <tr>
+                        <td></td>
+                        <td>{{name}}</td>
+                        <td>{{score}}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
 
-              {% endfor %}
-              <td>Enter yours:</td>
-              <form class="form-inline" action="{{url_for('home')}}" method="post">
-                  {{ form.hidden_tag() }}
-                <td>
-                    <div class="form-group">
-                    <!--<label for="name" class="sr-only">Name</label>-->
-                    <!--<input type="name" class="form-control" id="name" placeholder="Name">-->
-                        {{ form.name }}
-                  </div>
-                </td>
-                  <td>
-                    <div class="form-group">
-                    <!--<label for="score" class="sr-only">Score</label>-->
-                    <!--<input type="number" class="form-control" id="score" placeholder="Score">-->
-                        {{ form.score}}
-                  </div>
-                </td>
-                  <!--<td><input type="submit" class="btn btn-primary mb-2" id="submit"></td>-->
-                  <td><input type="submit"></td>
-                </form>
+                    <td>Enter yours:</td>
+                    <form class="form-inline" action="{{url_for('home')}}" method="post">
+                        {{ form.hidden_tag() }}
+                        <td>
+                            <div class="form-group">
+                                {{ form.name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.score}}
+                            </div>
+                        </td>
+                        <td><input type="submit"></td>
+                    </form>
 
-
-              </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
-            {% endblock %}
         </div>
         <div class="col-md-2"></div>
-        </div>
+    </div>
 
 </main>
 
