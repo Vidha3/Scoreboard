@@ -6,9 +6,16 @@ from flask import (Flask,
                    redirect,
                    request
                    )
+
 # from score_board.src.scoreboard import Scoreboard
-from score_board.forms import DataForm
-from score_board import sb
+try:
+    from score_board.forms import DataForm
+    from score_board import sb
+except Exception as e:
+    import sys
+    sys.path.append('.')
+    from score_board.forms import DataForm
+    from score_board import sb
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8815976dfb4c5e3a124ce3cdcae89812'
