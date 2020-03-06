@@ -17,7 +17,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 @app.route('/')
-@app.route('/home/inorder', methods=['get', 'post'])
 @app.route('/home', methods=['get', 'post'])
 def home():
     form = DataForm()
@@ -31,7 +30,6 @@ def home():
             name, score = form.name.data, form.score.data
             if not sb.add_score(name, score):
                 flash("You cannot modify existing scores. You can only add new ones.")
-            # sb.display_scores()
             return redirect(url_for('home'))
         return render_template('home.html', title='Scoreboard', scores=scores_dict, form=form)
 
