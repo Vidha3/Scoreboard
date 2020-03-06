@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+        dropdownMenuLink
+          $('a#in-order').bind('click', function() {
+            var params = {'order': 0};
+            $.getJSON('{{url_for('home')}}', params,
+                function(data) {
+              //do nothing
+            });
+            location.reload(true);
+            return false;
+          });
+
+          $('a#ascend').bind('click', function() {
+            var params = {'order': 1};
+            $.getJSON('{{url_for('home')}}', params,
+                function(data) {
+              //do nothing
+            });
+            location.reload(true);
+            return false;
+          });
+
+          $('a#descend').bind('click', function() {
+            var params = {'order': 2};
+            $.getJSON('{{url_for('home')}}', params,
+                function(data) {
+              //do nothing
+            });
+            location.reload(true);
+            return false;
+          });
+
+        });
+
+</script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css')}}">
+    <style>
+    .carousel .carousel-indicators li {
+    background-color: #fff;
+    background-color: rgba(234, 215, 42, 1);
+    }
+
+    .carousel .carousel-indicators .active {
+    background-color: red;
+    </style>
+    <title> Scoreboard</title>
+
+</head>
+<body>
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+            <a class="navbar-brand mr-4" href="/">Scoreboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-danger">
+                {{ message}}
+            </div>
+            {% endfor %}
+            {% endif%}
+            {% endwith %}
+            {% block concise_content %}
+            Welcome to the Scoreboard! View existing scores here, and feel free to add yours!
+            <br><br>
+
+            <div class="row">
+                <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">
+                      <div class="dropdown show">
+                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Score</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{url_for('home')}}" id="in-order" >In order</a>
+                            <a class="dropdown-item" href="{{url_for('home')}}" id="ascend" >Ascending</a>
+                            <a class="dropdown-item" href="{{url_for('home')}}" id="descend" >Descending</a>
+                          </div>
+                        </div>
+                  </th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for name,score in scores.score_table %}
+                <tr>
+                    <td></td> <td>{{name}}</td> <td>{{score}}</td> <td></td>
+                </tr>
+
+              {% endfor %}
+              <td>Enter yours:</td>
+              <form class="form-inline" action="{{url_for('home')}}" method="post">
+                  {{ form.hidden_tag() }}
+                <td>
+                    <div class="form-group">
+                    <!--<label for="name" class="sr-only">Name</label>-->
+                    <!--<input type="name" class="form-control" id="name" placeholder="Name">-->
+                        {{ form.name }}
+                  </div>
+                </td>
+                  <td>
+                    <div class="form-group">
+                    <!--<label for="score" class="sr-only">Score</label>-->
+                    <!--<input type="number" class="form-control" id="score" placeholder="Score">-->
+                        {{ form.score}}
+                  </div>
+                </td>
+                  <!--<td><input type="submit" class="btn btn-primary mb-2" id="submit"></td>-->
+                  <td><input type="submit"></td>
+                </form>
+
+
+              </tbody>
+            </table>
+            </div>
+            {% endblock %}
+        </div>
+        <div class="col-md-2"></div>
+        </div>
+
+</main>
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% block body_scripts %} {% endblock body_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
